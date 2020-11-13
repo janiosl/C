@@ -31,8 +31,8 @@ def usage():
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], "uh", ["urls", "help"])
-except getopt.GetoptError as err:
-    print(err)
+except getopt.GetoptError, err:
+    print str(err)
     usage()
     sys.exit(2)
 

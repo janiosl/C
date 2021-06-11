@@ -1,1 +1,0 @@
-int calculaFatorial(int numero);

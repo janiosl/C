@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h> /*Biblioteca para usar acentuação nas impressões*/
 #include "lista.h"
 
 int main() {
-    setlocale(LC_ALL,"Portuguese"); /*Configuração de idioma dos caracteres*/
-    
     Lista* lst;          /*Cria uma variável com o tipo personalizado*/
     lst = lst_cria();    /*Cria uma lista vazia*/
     
+    puts("==================================================");
+    puts("Lista Encadeada");
+    puts("==================================================\n");
     
     /*Uso da função de verifica de lista vaiza antes da inserção de elementos*/
-    puts("Verificar se a lista está vazia:\n1 = Vazia; 0 = Não vazia");
+    puts("Verificar lista vazia:\n1 = Lista vazia; 0 = Lista com elementos");
     int verifica;
     verifica = lst_vazia(lst);
     printf("Vazia? %i\n\n", verifica);
@@ -27,12 +27,11 @@ int main() {
     lst = lst_insere(lst, 33);
     lst = lst_insere(lst, 7);
     
-    puts("Impressão de itens da lista\n");
+    puts("Visualizar itens da lista\n");
     lst_imprime(lst);
-    puts("Lista concluída\n");
     
     /*Uso da função de verifica de lista vaiza depois da inserção de elementos*/
-    puts("Verificar se a lista está vazia:\n1 = Vazia; 0 = Não vazia");
+    puts("Verificar lista vazia:\n1 = Lista vazia; 0 = Lista com elementos");
     verifica = lst_vazia(lst);
     printf("Vazia? %i\n", verifica);
 
@@ -45,10 +44,10 @@ int main() {
     elem_busca = lst_busca(lst, elem); /*Execução da busca*/
     
     /*Exibição do resultado da busca*/
-    puts("\nBusca de elemento na lista");
+    puts("\nBuscar elemento na lista");
     
     if (elem_busca != NULL) {
-        printf("Elemento encontrado: %i\n",  elem);
+        printf("Elemento %i encontrado\n",  elem);
     } else
         printf("Elemento %i inexistente na lista\n", elem);
     
@@ -60,7 +59,7 @@ int main() {
     puts("\nBusca de elemento na lista");
     
     if (elem_busca != NULL) {
-        printf("Elemento encontrado: %i\n",  elem);
+        printf("Elemento %i encontrado\n",  elem);
     } else
         printf("Elemento %i inexistente na lista\n", elem);
     
@@ -69,18 +68,23 @@ int main() {
     puts("==================================================\n");
     
     elem = 45;
-    printf("Remoção do elemento %i\n", elem);
-    lst_retira(lst, elem);
+    printf("Remover elemento %i\n", elem);
+    lst = lst_retira(lst, elem);
     
-    puts("Impressão de itens da lista atualizada\n");
+    puts("Visualizar itens da lista atualizada\n");
     lst_imprime(lst);
-    puts("Lista concluída\n");
+
+    elem = 7;
+    printf("Remover elemento %i\n", elem);
+    lst = lst_retira(lst, elem);
     
+    puts("Visualizar itens da lista atualizada\n");
+    lst_imprime(lst);
     
     /*Aplicação da função para liberar lista da memória*/
     puts("==================================================\n");
     
-    puts("Liberando lista da memória...\n");
+    puts("Liberando lista...\n");
     lst_libera(lst);
     
     return 0;

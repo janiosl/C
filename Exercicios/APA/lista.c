@@ -118,3 +118,42 @@ void lst_libera(Lista* lst)
         p = t;                /*Aponta para o próximo elemento para continuar o loop*/
     }
 }
+
+
+/*===================================================*/
+/*Função inserção ordenada: Insere elemento em ordem */
+/*===================================================*/
+Lista* lst_insere_ordenado(Lista* lst, int val)
+{
+    /*Elemento novo*/
+    Lista* novo;
+    
+    /*Ponteiros auxiliares*/
+    Lista* ant = NULL;
+    Lista* p = lst;
+    
+    /*Procura posição da inserção*/
+    while (p != NULL && p->info < val)
+    {
+        ant = p;
+        p = p->prox;
+    }
+    
+    /*Cria novo elemento*/
+    novo = (Lista*) malloc(sizeof(Lista));
+    novo->info = val;
+    
+    /*Encadeia elemento*/
+    if (ant == NULL)
+    {
+        /*Insere elemento no início da lista*/
+        novo->prox = lst;
+        lst = novo;
+    } else
+    {
+        /*Insere elemento no meio da lista*/
+        novo->prox = ant->prox;
+        ant->prox = novo;
+    }
+    return lst;
+}

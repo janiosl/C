@@ -11,3 +11,5 @@ Lista* lst_retira (Lista* lst, int val);
 int lst_vazia (Lista* lst);
 Lista* lst_busca (Lista* lst, int val);
 void lst_imprime (Lista* lst);
+
+Lista* lst_insere_ordenado(Lista* lst, int val);

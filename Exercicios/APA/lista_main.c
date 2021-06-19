@@ -86,6 +86,26 @@ int main() {
     
     puts("Liberando lista...\n");
     lst_libera(lst);
+
+        /*Criação da lista ordenada*/
+    Lista* lst_ord;          /*Cria uma variável com o tipo personalizado*/
+    lst_ord = lst_cria();    /*Cria uma lista vazia*/
+    
+    puts("==================================================");
+    puts("Lista Encadeada Ordenada");
+    puts("==================================================\n");
+
+    /*Insere diversos elementos*/
+    puts("Inserindo elementos na lista...\n");
+    
+    
+    lst_ord = lst_insere_ordenado(lst_ord, 23);
+    lst_ord = lst_insere_ordenado(lst_ord, 45);
+    lst_ord = lst_insere_ordenado(lst_ord, 33);
+    lst_ord = lst_insere_ordenado(lst_ord, 7);
+    
+    puts("Visualizar itens da lista\n");
+    lst_imprime(lst_ord);
     
     return 0;
 }

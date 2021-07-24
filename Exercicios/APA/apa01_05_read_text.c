@@ -5,16 +5,21 @@
 int count_v(char text[]){
     /*
     Função realiza a contagem de vogais em um texto recebido
+    ---------------------------------------------------------------------------------
     */
+
+    /*Variáveis para identificação e contagem das vogais*/
     char v[10] = "AaEeIiOoUu";
     int c = 0;
+
+    /*Variáveis de controle dos loops e condições*/
     int i, j;
 
-    /*Para cada letra do texto até seu final \0*/
+    /*Para cada letra do texto até seu final (\0) */
     for (i = 0; text[i] != '\0'; i++){
         /*Para cada vogal*/
         for (j = 0; v[j] != '\0'; j++){
-            /*Se a vogal for igual à letra adiciona 1 a q*/
+            /*Se a j-ésima vogal for igual à i-ésima letra adiciona 1 a variável c*/
             if (v[j] == text[i]) {
                 c ++;
                 break;
@@ -26,6 +31,8 @@ int count_v(char text[]){
 
 int main(){
     /*
+    Programa recebe um texto, conta suas vogais e exibe o resultado
+    ---------------------------------------------------------------------------------
     Para receber texto via arquivo o programa deve ser executado com a sintaxe:
     read_text < [arquivo.txt]
     * read_text é o nome sugerido para o programa compilado

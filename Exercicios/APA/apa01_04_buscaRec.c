@@ -26,19 +26,19 @@ int buscaBinariaRec(int A[], int inicio, int final, int itemProcurado){
 }
 
 int main(){
-    int A[5] = {1,2,3,4,5}; /*Vetor de itens*/
-    int inicio = 0;  /*Início do vetor*/
-    int final = 5;   /*Tamanho do vetor*/
-    int result;      /*Índice de localização do item procurado*/
-    
+    int A[] = {1,2,3,4,5};                  /*Vetor de itens*/
+    int inicio = 0;                         /*Início do vetor*/
+    int final = sizeof(A)/sizeof(A[0]);     /*Tamanho do vetor*/
+    int result;                             /*Índice de localização do item procurado*/
+
     /*Aplicação da função*/
-    int itemProcurado = 3;
+    int itemProcurado = 5;
     result = buscaBinariaRec(A, inicio, final, itemProcurado);
     
     /*Exibição do resultado na tela*/
     printf("Item procurado: %i\n", itemProcurado);
     if (result == -1){
-        puts("Item não localizado\n");
+        puts("Item nao localizado\n");
     } else {
         printf("Indice do item procurado no vetor de itens: %i\n", result);
     }

@@ -42,6 +42,5 @@ int main(){
     } else {
         printf("Indice do item procurado no vetor de itens: %i\n", result);
     }
-    
     return 0;
 }

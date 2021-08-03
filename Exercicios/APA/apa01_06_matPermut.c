@@ -1,6 +1,5 @@
 #include <stdio.h>
 #define N 3
-
 int verifMatPerm(int matriz[N][N], int tamanho){
     int i, j;
     i = 0;
@@ -42,6 +41,10 @@ int verifMatPerm(int matriz[N][N], int tamanho){
     } else {
         return 0;
     }*/
+    /*A função chegará no retorno verdadeiro (1) apenas
+    se não for terminado antecipadamente pela reprovação
+    nas checagens das regras de definição da matriz de permutação
+    =============================================================*/
     return 1;
 }
 int main(){
@@ -64,7 +67,6 @@ int main(){
     estiver errada será interpretada equivocadamente*/
     /*==================================================================*/
     int C[N][N] = {1,0,0,1,0,0,1,0,0};
-    
     /*Visualizando as matrizes*/
     /*========================*/
     puts("Matriz A:");

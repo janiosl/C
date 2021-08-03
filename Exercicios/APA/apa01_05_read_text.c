@@ -1,19 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+/*=========================================*/
+/*Função contas as vogais do texto recebido*/
+/*=========================================*/
 int count_v(char text[]){
-    /*
-    Função realiza a contagem de vogais em um texto recebido
-    ---------------------------------------------------------------------------------
-    */
-
     /*Variáveis para identificação e contagem das vogais*/
     char v[10] = "AaEeIiOoUu";
     int c = 0;
-
     /*Variáveis de controle dos loops e condições*/
     int i, j;
-
     /*Para cada letra do texto até seu final (\0) */
     for (i = 0; text[i] != '\0'; i++){
         /*Para cada vogal*/
@@ -27,7 +22,9 @@ int count_v(char text[]){
     }
     return c;
 }
-
+/*==================*/
+/*Programa principal*/
+/*==================*/
 int main(){
     /*
     Programa recebe um texto, conta suas vogais e exibe o resultado
@@ -40,17 +37,13 @@ int main(){
     A saída exibirá o texto contido no arquivo e a quantidade de vogais identificadas
     Se o arquivo não for passado o programa aguardará a digitação pelo usuário.
     */
-
     /*Variáveis para receber texto e gravar resultado*/
     char text[100];
     int result;
-
     /*Leitura do texto*/
     scanf("%99[^\n]", text);
-    
     /*Execução da função e exibição do resultado*/
     result = count_v(text);
     printf("Texto recebido:\n%s\nVogais identificadas: %i\n", text, result);
-
     return 0;
 }

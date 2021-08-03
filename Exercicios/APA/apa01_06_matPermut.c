@@ -1,5 +1,8 @@
 #include <stdio.h>
 #define N 3
+/*===================================================*/
+/*Função verifica se a matriz passada é de permutação*/
+/*===================================================*/
 int verifMatPerm(int matriz[N][N], int tamanho){
     int i, j;
     i = 0;
@@ -47,6 +50,9 @@ int verifMatPerm(int matriz[N][N], int tamanho){
     =============================================================*/
     return 1;
 }
+/*=================*/
+/*Programa principal*/
+/*=================*/
 int main(){
     int i, j;
     int result;

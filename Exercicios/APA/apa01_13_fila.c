@@ -95,6 +95,8 @@ int main(){
     puts("Removendo elementos da fila:");
     int i = 0;
     while(i < elementos++){
+        /*Loop forçado a exceder o limite da fila para checar
+        a trava embutida na função de exclusão*/
         fila_exclui(fila);
         fila_imprime(fila);
         i++;

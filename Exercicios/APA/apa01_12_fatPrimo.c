@@ -71,7 +71,7 @@ Pilha* pilha_exclui(Pilha* plh){
         }
         pu->prox = NULL;
         len --;
-        printf("%i\n", u->info);
+        printf("%i", u->info);
         return u;
     }
 }
@@ -79,7 +79,7 @@ Pilha* pilha_exclui(Pilha* plh){
 /*Função de impressão: imprime valores dos elementos*/
 /*==================================================*/
 void pilha_imprime(Pilha *plh){
-    puts("Visualizar itens da pilha:");
+    puts("\nVisualizar itens da pilha:");
     if(pilha_vazia(plh)){
         puts("Pilha vazia!");
         return;
@@ -186,13 +186,17 @@ int main(){
     scanf("%i", &n);
     Pilha* fp;
     fp = fatPrimo(n);
-    /*Eliminação dos elementos e exibição na tela*/
-    /*Como a eliminaçaõ é feita na ordem inversa
-    do topo da pilha até o final, conseguimos 
-    visualizar a ordem correta (inversa) dos itens*/
-    while (fp->prox != NULL){
+    /*Eliminação dos elementos e exibição na tela no formato requisitado*/
+    while(1){
         pilha_exclui(fp);
+        if(fp->prox == NULL){
+            break;
+        }
+        printf(" * ");
     }
+    /*Como a eliminaçaõ acima é feita na ordem inversa,
+    ou seja, do topo da pilha até o final, conseguimos 
+    visualizar a ordem desejada dos itens*/
     pilha_liberar(fp);
     return 0;
 }

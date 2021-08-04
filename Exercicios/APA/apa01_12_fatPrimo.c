@@ -63,7 +63,7 @@ Pilha* pilha_exclui(Pilha* plh){
     } else{
         /*Variáveis de apoio para percorrer pilha*/
         Pilha *u = plh->prox; /*Último item*/
-        Pilha *pu = plh;      /*Penúlmtimo item*/
+        Pilha *pu = plh;      /*Penúltimo item*/
         /*Lógica para ajustar posição dos itens*/
         while(u->prox != NULL){
             pu = u;

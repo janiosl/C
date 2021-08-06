@@ -1,5 +1,4 @@
 /* TAD: lista de inteiros */
-
 typedef struct lista Lista;
 
 Lista* lst_cria (void);
@@ -13,3 +12,4 @@ Lista* lst_busca (Lista* lst, int val);
 void lst_imprime (Lista* lst);
 
 Lista* lst_insere_ordenado(Lista* lst, int val);
+Lista* lst_inv(Lista* lst);

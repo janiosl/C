@@ -27,7 +27,6 @@ ListaDE* listaDE_insere(ListaDE* lst, int val){
     }
     return novo;
 }
-
 /*===================================================*/
 /*Função inserção ordenada: Insere elemento em ordem */
 /*===================================================*/
@@ -65,7 +64,6 @@ ListaDE* lst_insere_ordenado(ListaDE* lst, int val)
     }
     return lst;
 }
-
 /*=====================================*/
 /*Função Buscar: busca um item na lista*/
 /*=====================================*/
@@ -75,12 +73,12 @@ ListaDE* listaDE_busca(ListaDE* lst, int val){
     for (p=lst; p!=NULL; p=p->prox){
         /*Condição verifica se o campo info contém o valor procurado*/
         if(p->info == val){
-            puts("Elemento encontrado");
+            printf("Elemento %i pertence ao conjunto\n", val);
             return p;
         }
     }
     /*Ação final ao não encontrar o item na lista*/
-    puts("Elemento nao encontrado");
+    printf("Elemento %i nao pertence ao conjunto\n", val);
     return NULL;
 }
 /*==================================================*/
@@ -89,8 +87,10 @@ ListaDE* listaDE_busca(ListaDE* lst, int val){
 void listaDE_imprime(ListaDE* lst)
 {
     ListaDE* p; /*Ponteiro para percorrer elementos da lista*/
+    printf("(");
     for (p = lst; p != NULL; p = p->prox)
-        printf("info = %d\n", p->info);
+        printf(" %d ", p->info);
+    printf(")\n");
 }
 /*==================================================*/
 /*Função de impressão: imprime valores dos elementos*/
@@ -124,52 +124,60 @@ ListaDE* copiar(ListaDE* lst){
 /*==================*/
 int main(){
     /*Criação da lista*/
-    ListaDE* lista;
-    lista = listaDE_cria();
-    /*Inserção de elementos*/
-    lista = listaDE_insere(lista, 7);
-    lista = listaDE_insere(lista, 9);
-    lista = listaDE_insere(lista, 33);
+    ListaDE* A;
+    ListaDE* B;
+    ListaDE* C;
+    A = listaDE_cria();
+    B = listaDE_cria();
+    C = listaDE_cria();
+    /*Inserção de elementos Conjunto A*/
+    A = listaDE_insere(A, 1);
+    A = listaDE_insere(A, 2);
+    A = listaDE_insere(A, 3);
+    /*Visualizando a lista completa*/
+    puts("\n====================================");
+    puts("Conjunto A");
+    puts("====================================");
+    listaDE_imprime(A);
     /*Busca de elementos na lista*/
     int val_desejado;
     val_desejado = 9;
-    printf("Verificando se valor %i esta na lista\n", val_desejado);
-    listaDE_busca(lista, val_desejado);
-    val_desejado = 12;
-    printf("Verificando se valor %i esta na lista\n", val_desejado);
-    listaDE_busca(lista, val_desejado);
+    puts("\n====================================");
+    puts("Pertinencia ao Conjunto A");
+    puts("====================================");
+    listaDE_busca(A, val_desejado);
+    val_desejado = 2;
+    listaDE_busca(A, val_desejado);
+    /*Inserção de elementos Conjunto B*/
+    B = listaDE_insere(B, 3);
+    B = listaDE_insere(B, 5);
+    B = listaDE_insere(B, 7);
     /*Visualizando a lista completa*/
-    listaDE_imprime(lista);
-    ListaDE* listaOrd;
-    listaOrd = listaDE_cria();
-    /*Inserção de elementos*/
-    puts("==================================================");
-    puts("Lista Ordenada");
-    puts("==================================================\n");
-    listaOrd = lst_insere_ordenado(listaOrd, 7);
-    listaOrd = lst_insere_ordenado(listaOrd, 72);
-    listaOrd = lst_insere_ordenado(listaOrd, 33);
-    /*Visualizando a lista completa*/
-    listaDE_imprime(listaOrd);
-    /*Concatenção de listas*/
-    puts("==================================================");
-    puts("Concatenando as duas listas");
-    puts("==================================================\n");
-    ListaDE* listaCT;
-    listaCT = listaDE_cria();
-    listaCT = concatena(lista, listaOrd);
-    /*Visualizando a lista completa*/
-    listaDE_imprime(listaCT);
-    puts("==================================================");
-    puts("Copiando uma lista");
-    puts("==================================================\n");
-    puts("Lista ORIGINAL");
-    listaDE_imprime(listaOrd);
-    ListaDE* listaCP;
-    listaCP = listaDE_cria();
-    listaCP = copiar(listaOrd);
-    /*Visualizando a lista completa*/
-    puts("Lista COPIADA");
-    listaDE_imprime(listaOrd);
+    puts("\n====================================");
+    puts("Conjunto B");
+    puts("====================================");
+    listaDE_imprime(B);
+    /*União entre conjuntos*/
+    C = concatena(A, B);
+    puts("\n====================================");
+    puts("Uniao de conjunto A e B");
+    puts("Conjunto C");
+    puts("====================================");
+    listaDE_imprime(C);
+    /*Intersecção entre os conjuntos*/
+    ListaDE* C_inter;
+    C_inter = listaDE_cria();
+    puts("\n====================================");
+    puts("Interseccao de conjunto A e B");
+    puts("Conjunto C");
+    puts("====================================");
+    puts("Funcionalidade em desenvolvimento...");
+    ListaDE* C_dif;
+    C_dif = listaDE_cria();
+    puts("\n====================================");
+    puts("Diferença de conjunto A e B");
+    puts("Conjunto C");
+    puts("====================================");
+    puts("Funcionalidade em desenvolvimento...");
     return 0;
 }

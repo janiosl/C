@@ -6,9 +6,11 @@
 struct lista {
     int info;
     struct lista* prox;
-};
-typedef struct lista Lista;
-
+};typedef struct lista Lista;
+struct controle{
+    struct Lista *ini;
+    struct Lista *fim;
+};typedef struct controle Controle;
 
 /*==========================================*/
 /*Função de criação: retorna uma lista vazia*/
@@ -156,4 +158,24 @@ Lista* lst_insere_ordenado(Lista* lst, int val)
         ant->prox = novo;
     }
     return lst;
+}
+
+/*==================================================*/
+/*Função para inverter a ligação dos itens da lista*/
+/*==================================================*/
+Lista* lst_inv(Lista *lst){
+    /*Criação da nova lista para armazenar os valores invertidos*/
+    Lista *inv;
+    /*Checagem do conteúdo da lista*/
+    if(lst == NULL || lst->prox == NULL){
+        return lst;
+    }
+    /*Uso da recursão para percorrer a lista original*/
+    /*É enviado recursivamente o ponteiro do próximo item
+    até que chegue ao "novo" final cujo próximo será NULL*/
+    inv = lst_inv(lst->prox);
+    lst->prox->prox = lst;
+    lst->prox = NULL;
+    /*Por fim a nova lista rev é retornada*/
+    return inv;
 }

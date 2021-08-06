@@ -10,11 +10,10 @@ struct pilha {
     int uso;
     struct pilha* prox;
 };typedef struct pilha Pilha;
-
 /*==========================================*/
 /*Função de criação: retorna uma pilha vazia*/
 /*==========================================*/
-void pilha_cria(Pilha *plh, int cp, int tipo){
+void pilha_cria(Pilha *plh, int cp){
     /*Atualiza uso se a pilha é estacionamento*/
     plh->uso = 0;
     plh->capacidade = cp;
@@ -67,14 +66,13 @@ void pilha_insere(Pilha* plh, int item[2]){
         t->prox = novo;
     }
     plh->uso++;
-    printf("Carro placa %i entrou no estacionamento\n", item[0]);
 }
 /*========================================*/
 /*Função de exclusão de elementos da pilha*/
 /*========================================*/
 Pilha* pilha_exclui(Pilha* plh){
     if(pilha_vazia(plh)){
-        puts("Pilha vazia!");
+        puts("Nenhum carro!");
         return NULL;
     } else{
         /*Variáveis de apoio para percorrer pilha*/
@@ -95,7 +93,7 @@ Pilha* pilha_exclui(Pilha* plh){
 /*==================================================*/
 void pilha_imprime(Pilha *plh){
     if(pilha_vazia(plh)){
-        puts("Pilha vazia!");
+        puts("Nenhum carro!");
         return;
     }
     puts("===========================================");
@@ -133,33 +131,48 @@ Pilha* est_saida(Pilha* plhE, Pilha* plhR, int placa){
     saida = pilha_exclui(plhE);
     /*Se o carro a sair está desbloqueado: processa saída direta*/
     if(saida->info[0]==placa){
-        printf("Carro placa %i saiu do estacionamento\n", saida->info[0]);
+        printf("Carro placa %i liberado\n", saida->info[0]);
         printf("Manobras ate a retirada: %i\n", saida->info[1]);
     } else {
-        /*Se o carro do topo não é o que irá sair: manobra para rua/
+        /*Se o carro do topo não é o que irá sair: manobra para rua*/
         printf("Carro %i manobrado\n", saida->info[0]);
         saida->info[1]++; /*Atualiza manobras do carro*/
         pilha_insere(plhR, saida->info);
     }
     return saida;
 }
-/*======================================*/
+/*========================================*/
+/*Função busca: busca um elemento na pilha*/
+/*========================================*/
+int pilha_busca(Pilha* plh, int v)
+{
+    Pilha* p;
+    for (p = plh; p != NULL; p = p->prox){
+        if (p->info[0] == v)
+            return 1;
+    }
+    return 0;
+}
+/*==================*/
 /*Programa principal*/
-/*======================================*/
+/*==================*/
 int main(){
     /*Criar estacionamento*/
+    /*====================*/
     puts("Criando estrutura do estacionamento...");
     Pilha* est=(Pilha*)malloc(sizeof(Pilha));
     int c=10; /*Vagas totais do estacionamento*/
-    pilha_cria(est, c, 1);
+    pilha_cria(est, c);
     Pilha* rua=(Pilha*)malloc(sizeof(Pilha));
-    pilha_cria(rua, c, 2);
+    pilha_cria(rua, c);
     /*Verificar se o estacionamento está vazio*/
+    /*========================================*/
     int v;
     v = pilha_vazia(est);
     printf("Estacionamento vazio: %i\n", v);
     conf_vagas(est);
     /*Entrada de carro*/
+    /*================*/
     int carro[2]; /*Placa do carro que será inserido*/
     carro[1] = 0; /*Quantidade PADRÃO inicial de manobras*/
     carro[0] = 1234;
@@ -167,12 +180,15 @@ int main(){
     carro[0] = 2468;
     pilha_insere(est, carro);
     /*Impressão do relatório de carros no estacionamento*/
+    /*==================================================*/
     puts("\n Carros no estacionamento:");
     pilha_imprime(est);
     /*Verificar se o estacionamento está vazio*/
     v = pilha_vazia(est);
     printf("\nEstacionamento vazio: %i\n", v);
     conf_vagas(est);
+    /*Entrada de mais carros*/
+    /*======================*/
     carro[0] = 2610;
     pilha_insere(est, carro);
     carro[0] = 2611;
@@ -182,28 +198,71 @@ int main(){
     carro[0] = 2613;
     pilha_insere(est, carro);
     /*Impressão do relatório de carros no estacionamento*/
-    puts("\n Carros no estacionamento:");
+    /*==================================================*/
+    puts("\nCarros no estacionamento:");
     pilha_imprime(est);
     conf_vagas(est);
     /*Retirada de carro do estacionamento*/
-    /*Variável para controle do movimento
-    0 = ENTRADA / 1 = SAÍDA*/
+    /*===================================*/
     int plc;
     printf("Placa do carro para remover: ");
     scanf("%i", &plc);
     Pilha* sd=(Pilha*)malloc(sizeof(Pilha));
+    int i = 0;
+    int prim = 0;
     puts("-------------------------------------------");
     printf("Solicitada retirada do carro %i\n", plc);
+    /*Retirada e/ou manobra do estacionamento para rua*/
+    /*================================================*/
     while(1){
+        if(pilha_busca(est,plc)!=1){
+            puts("Este carro nao esta no estacionamento");
+            break;
+        }
         sd = est_saida(est, rua, plc);
         if(sd->info[0]==plc){
             break;
         }
+        /*Guarda o primeiro carro colocado na rua*/
+        if(i==0)
+            prim=sd->info[0];
+        i++;
     }
+    /*Manobra da rua para o estacionamento*/
+    /*====================================*/
+    if(prim!=0){
+        puts("Manobrando carros de volta da rua ao estacionamento");
+        while (1){
+            sd = est_saida(rua, est, prim);
+            if(pilha_vazia(rua)){
+                /*Devolve o último carro retirado da rua*/
+                /*Esta parte permite o reaproveitamento da função pilha_insere*/
+                /*Sem ela teria que ser alterada a função ou criada outra para o retorno*/
+                sd->info[1]++;
+                pilha_insere(est, sd->info);
+                printf("Carros retornaram ao estacionamento\n");
+                break;
+            }
+        }
+    }
+    /*Confere novamente a situação do estacionamento e da rua*/
+    /*=======================================================*/
     puts("-------------------------------------------");
-    puts("\n Carros no estacionamento:");
+    puts("\nCarros no estacionamento:");
     pilha_imprime(est);
-    puts("\n Carros na rua:");
+    conf_vagas(est);
+    puts("\nCarros na rua:");
     pilha_imprime(rua);
+    /*Adicionando novo carro*/
+    puts("\nAdicionando novo carro");
+    carro[0] = 4026;
+    pilha_insere(est, carro);
+    puts("\nCarros no estacionamento:");
+    pilha_imprime(est);
+    /*Liberando as pilhas da memória*/
+    /*==============================*/
+    pilha_liberar(est);
+    pilha_liberar(rua);
+    pilha_liberar(sd);
     return 0;
 }

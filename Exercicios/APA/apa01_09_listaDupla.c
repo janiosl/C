@@ -107,6 +107,18 @@ ListaDE* concatena(ListaDE* lst1, ListaDE* lst2){
     }
     return ct;
 }
+/*==================================================*/
+/*Função de impressão: imprime valores dos elementos*/
+/*==================================================*/
+ListaDE* copiar(ListaDE* lst){
+    ListaDE* copia = (ListaDE*)malloc(sizeof(ListaDE));
+    copia = listaDE_cria();
+    ListaDE* p; /*Ponteiro para percorrer elementos da lista*/
+    for (p = lst; p != NULL; p = p->prox){
+        copia = lst_insere_ordenado(copia, p->info);
+    }
+    return copia;
+}
 /*==================*/
 /*Programa Principal*/
 /*==================*/
@@ -148,5 +160,16 @@ int main(){
     listaCT = concatena(lista, listaOrd);
     /*Visualizando a lista completa*/
     listaDE_imprime(listaCT);
+    puts("==================================================");
+    puts("Copiando uma lista");
+    puts("==================================================\n");
+    puts("Lista ORIGINAL");
+    listaDE_imprime(listaOrd);
+    ListaDE* listaCP;
+    listaCP = listaDE_cria();
+    listaCP = copiar(listaOrd);
+    /*Visualizando a lista completa*/
+    puts("Lista COPIADA");
+    listaDE_imprime(listaOrd);
     return 0;
 }

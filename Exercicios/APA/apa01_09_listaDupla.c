@@ -27,6 +27,45 @@ ListaDE* listaDE_insere(ListaDE* lst, int val){
     }
     return novo;
 }
+
+/*===================================================*/
+/*Função inserção ordenada: Insere elemento em ordem */
+/*===================================================*/
+ListaDE* lst_insere_ordenado(ListaDE* lst, int val)
+{
+    /*Elemento novo*/
+    ListaDE* novo;
+    
+    /*Ponteiros auxiliares*/
+    ListaDE* ant = NULL;
+    ListaDE* p = lst;
+    
+    /*Procura posição da inserção*/
+    while (p != NULL && p->info < val)
+    {
+        ant = p;
+        p = p->prox;
+    }
+    
+    /*Cria novo elemento*/
+    novo = (ListaDE*) malloc(sizeof(ListaDE));
+    novo->info = val;
+    
+    /*Encadeia elemento*/
+    if (ant == NULL)
+    {
+        /*Insere elemento no início da lista*/
+        novo->prox = lst;
+        lst = novo;
+    } else
+    {
+        /*Insere elemento no meio da lista*/
+        novo->prox = ant->prox;
+        ant->prox = novo;
+    }
+    return lst;
+}
+
 /*=====================================*/
 /*Função Buscar: busca um item na lista*/
 /*=====================================*/
@@ -74,5 +113,16 @@ int main(){
     listaDE_busca(lista, val_desejado);
     /*Visualizando a lista completa*/
     listaDE_imprime(lista);
+    ListaDE* listaOrd;
+    listaOrd = listaDE_cria();
+    /*Inserção de elementos*/
+    puts("==================================================");
+    puts("Lista Ordenada");
+    puts("==================================================\n");
+    listaOrd = lst_insere_ordenado(listaOrd, 7);
+    listaOrd = lst_insere_ordenado(listaOrd, 72);
+    listaOrd = lst_insere_ordenado(listaOrd, 33);
+    /*Visualizando a lista completa*/
+    listaDE_imprime(listaOrd);
     return 0;
 }

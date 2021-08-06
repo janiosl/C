@@ -92,6 +92,21 @@ void listaDE_imprime(ListaDE* lst)
     for (p = lst; p != NULL; p = p->prox)
         printf("info = %d\n", p->info);
 }
+/*==================================================*/
+/*Função de impressão: imprime valores dos elementos*/
+/*==================================================*/
+ListaDE* concatena(ListaDE* lst1, ListaDE* lst2){
+    ListaDE* ct = (ListaDE*)malloc(sizeof(ListaDE));
+    ct = listaDE_cria();
+    ListaDE* p; /*Ponteiro para percorrer elementos da lista*/
+    for (p = lst1; p != NULL; p = p->prox){
+        ct = listaDE_insere(ct, p->info);
+    }
+    for (p = lst2; p != NULL; p = p->prox){
+        ct = listaDE_insere(ct, p->info);
+    }
+    return ct;
+}
 /*==================*/
 /*Programa Principal*/
 /*==================*/
@@ -124,5 +139,14 @@ int main(){
     listaOrd = lst_insere_ordenado(listaOrd, 33);
     /*Visualizando a lista completa*/
     listaDE_imprime(listaOrd);
+    /*Concatenção de listas*/
+    puts("==================================================");
+    puts("Concatenando as duas listas");
+    puts("==================================================\n");
+    ListaDE* listaCT;
+    listaCT = listaDE_cria();
+    listaCT = concatena(lista, listaOrd);
+    /*Visualizando a lista completa*/
+    listaDE_imprime(listaCT);
     return 0;
 }

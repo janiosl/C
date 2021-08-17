@@ -50,6 +50,13 @@ void arv_imprime (Arv* a){
     }
     printf(">");
 }
+int arv_conta_nos(Arv* a){
+    //Conta a quantidade de nós da árvore
+	if(!a)
+		return 0;
+	else
+		return 1+ arv_conta_nos(a->esq)+arv_conta_nos(a->dir);
+}
 int arv_num_folhas(Arv *a){
     //Conta quantidade de folhas
     int nf;
@@ -95,23 +102,27 @@ int main(){
     puts("-----------------------------------------");
     arv_imprime(a);
     puts("\n=========================================");
+    int nos;
     int folhas;
+    nos = arv_conta_nos(a);
     folhas = arv_num_folhas(a);
-    printf("Folhas: %d\n", folhas);
+    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
     /*Analisando a subárvore arvore c*/
     puts("Visualizacao da arvore c:");
     puts("-----------------------------------------");
     arv_imprime(a5);
     puts("\n=========================================");
+    nos = arv_conta_nos(a5);
     folhas = arv_num_folhas(a5);
-    printf("Folhas: %d\n", folhas);
+    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
     /*Analisando uma árvore vazia*/
     Arv* vazia = arv_criavazia();
     puts("Visualizacao da arvore vazia:");
     puts("-----------------------------------------");
+    nos = arv_conta_nos(vazia);
     arv_imprime(vazia);
     puts("\n=========================================");
     folhas = arv_num_folhas(vazia);
-    printf("Folhas: %d\n", folhas);
+    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
     return 0;
 }

@@ -59,8 +59,7 @@ int arv_conta_nos(Arv* a){
 }
 int arv_num_folhas(Arv *a){
     //Conta quantidade de folhas
-    int nf;
-    nf = 0;
+    int nf = 0;
     //Verifica se a arvore é vazia
     if(!arv_vazia(a)){
         if(arv_vazia(a->esq) && arv_vazia(a->dir)){
@@ -75,10 +74,24 @@ int arv_num_folhas(Arv *a){
 }
 int arv_filhos_direita(Arv *a){
     //Conta quantidade de filhos à direita
+    int nfd = 0;
+    //Verifica se a arvore é vazia
+    if(!arv_vazia(a)){
+        if(arv_vazia(a->dir)){
+            return nfd;
+        } else{
+            nfd = nfd + arv_filhos_direita(a->esq);
+            nfd = nfd + arv_filhos_direita(a->dir);
+        }
+        return nfd;
+    }
     return 0;
 }
 int arv_altura(Arv *a){
     //Calcula a altura da árvore
+    if(arv_vazia(a)){
+        return -1;
+    }
     return 0;
 }
 /*------------------
@@ -97,16 +110,18 @@ int main(){
     Arv* a5= arv_cria('c',a3,a4);
     /* árvore 'a' */
     Arv* a = arv_cria('a',a2,a5);
+    /*Variáveis para apoio análise das árvores*/
+    int nos, folhas, filhos_d, alt;
     /*Analisando arvore completa*/
     puts("Visualizacao da arvore a:");
     puts("-----------------------------------------");
     arv_imprime(a);
     puts("\n=========================================");
-    int nos;
-    int folhas;
     nos = arv_conta_nos(a);
     folhas = arv_num_folhas(a);
-    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
+    filhos_d = arv_filhos_direita(a);
+    alt = arv_altura(a);
+    printf("Nos: %d\nFolhas: %d\nFilhos Direita: %d\nAltura: %d\n\n", nos, folhas, filhos_d, alt);
     /*Analisando a subárvore arvore c*/
     puts("Visualizacao da arvore c:");
     puts("-----------------------------------------");
@@ -114,15 +129,19 @@ int main(){
     puts("\n=========================================");
     nos = arv_conta_nos(a5);
     folhas = arv_num_folhas(a5);
-    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
+    filhos_d = arv_filhos_direita(a5);
+    alt = arv_altura(a5);
+    printf("Nos: %d\nFolhas: %d\nFilhos Direita: %d\nAltura: %d\n\n", nos, folhas, filhos_d, alt);
     /*Analisando uma árvore vazia*/
     Arv* vazia = arv_criavazia();
     puts("Visualizacao da arvore vazia:");
     puts("-----------------------------------------");
-    nos = arv_conta_nos(vazia);
     arv_imprime(vazia);
     puts("\n=========================================");
+    nos = arv_conta_nos(vazia);
     folhas = arv_num_folhas(vazia);
-    printf("Nos: %d\nFolhas: %d\n\n", nos, folhas);
+    filhos_d = arv_filhos_direita(vazia);
+    alt = arv_altura(vazia);
+    printf("Nos: %d\nFolhas: %d\nFilhos Direita: %d\nAltura: %d\n\n", nos, folhas, filhos_d, alt);
     return 0;
 }

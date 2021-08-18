@@ -1,10 +1,10 @@
 #include <stdio.h>
 float raiz(float numero){
-    float precisao = 0.000001;
+    float precisao = 0.1;
     float b = numero, a=1;
     while ((b-a) >= precisao){
         b = (a+b)/2;
-        a= numero / b;
+        a = numero/b;
     }
     return b;
 }

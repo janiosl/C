@@ -76,23 +76,41 @@ int arv_filhos_direita(Arv *a){
     //Conta quantidade de filhos à direita
     int nfd = 0;
     //Verifica se a arvore é vazia
-    if(!arv_vazia(a)){
-        if(arv_vazia(a->dir)){
-            return nfd;
-        } else{
+    if(arv_vazia(a)){
+        return 0;
+    } else {
+        if(!arv_vazia(a->dir)){
+            //Se a árvore a direita não é vazia adiciona 1
+            nfd++;
+            //Continua percorrendo a árvore por recursividade
             nfd = nfd + arv_filhos_direita(a->esq);
             nfd = nfd + arv_filhos_direita(a->dir);
         }
-        return nfd;
     }
-    return 0;
+    return nfd;
 }
 int arv_altura(Arv *a){
     //Calcula a altura da árvore
     if(arv_vazia(a)){
+        //Se a árvore é vazia a altura é -1
         return -1;
     }
-    return 0;
+    /*
+    Trecho executado se a árvore não é vazia
+    Calcula recursivamente a altura de cada lado
+    */
+    int alt_e, alt_d;
+    alt_e = arv_altura(a->esq);
+    alt_d = arv_altura(a->dir);
+    /*
+    Compara o comprimento de cada lado
+    e retorna o lado maior como a altura
+    */
+    if (alt_e < alt_d){
+        return alt_d + 1;
+    } else{
+        return alt_e + 1;
+    }
 }
 /*------------------
 Programa principal
